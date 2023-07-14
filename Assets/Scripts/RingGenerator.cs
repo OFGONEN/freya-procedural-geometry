@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -97,6 +98,14 @@ public class RingGenerator : MonoBehaviour
     {
         CustomGizmos.DrawWiredCircleVertical(transform.position, transform.rotation, radiusInner, angularSegmentCount);
         CustomGizmos.DrawWiredCircleVertical(transform.position, transform.rotation, RadiusOuter, angularSegmentCount);
+
+        if (EditorApplication.isPlaying)
+        {
+            var mesh = GetComponent<MeshFilter>().sharedMesh;
+        
+            CustomGizmos.DrawMeshVertexInfo(transform.position + Vector3.left * 5f, mesh);
+            CustomGizmos.DrawMeshUVInfo(transform.position + Vector3.right * 5f, mesh);            
+        }
     }
 }
 

@@ -51,10 +51,16 @@ public static class CustomGizmos
     public static void DrawMeshVertexInfo(Vector3 position, Mesh mesh)
     {
         var vertices = mesh.vertices;
-        for (int i = 0; i < vertices.Length; i++)
+        for (int i = 0; i < vertices.Length - 2; i++)
         {
             var point = position + vertices[i]; 
             Handles.Label(point, $"Vertex({i}): {point}");
+        }
+
+        for (int i = vertices.Length - 2; i < vertices.Length; i++)
+        {
+            var point = position + vertices[i]; 
+            Handles.Label(point + Vector3.up * 0.1f, $"Vertex({i}): {point}");
         }
     }
     
@@ -62,10 +68,16 @@ public static class CustomGizmos
     {
         var vertices = mesh.vertices;
         var uvs = mesh.uv;
-        for (int i = 0; i < vertices.Length; i++)
+        for (int i = 0; i < vertices.Length - 2; i++)
         {
             var point = position + vertices[i]; 
             Handles.Label(point, $"UV({i}): {uvs[i]}");
+        }
+
+        for (int i = vertices.Length - 2; i < vertices.Length; i++)
+        {
+            var point = position + vertices[i]; 
+            Handles.Label(point + Vector3.up * 0.1f, $"UV({i}): {uvs[i]}");
         }
     }
 }
