@@ -50,11 +50,8 @@ Shader "Unlit/UVs"
             float4 frag (v2f i) : SV_Target
             {
                 return float4((i.uv),0,1);
-                // // sample the texture
-                // fixed4 col = tex2D(_MainTex, i.uv);
-                // // apply fog
-                // UNITY_APPLY_FOG(i.fogCoord, col);
-                // return col;
+                // return float4(i.uv.xxx,1);
+                // return float4(i.uv.yyy,1);
             }
             ENDCG
         }
