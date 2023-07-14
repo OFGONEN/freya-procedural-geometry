@@ -556,9 +556,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbbcd50a27af6e4da94c4553ea3d9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uvProjection: 0
   radiusInner: 1
   thickness: 1
-  angularSegmentCount: 3
+  angularSegmentCount: 8
 --- !u!23 &859482604
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -579,7 +580,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 57615649fcbc8e249bb27f7f792ca1a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
