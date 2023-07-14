@@ -47,4 +47,25 @@ public static class CustomGizmos
         
         Gizmos.DrawLine(points[points.Length - 1], points[0]);
     }
+
+    public static void DrawMeshVertexInfo(Vector3 position, Mesh mesh)
+    {
+        var vertices = mesh.vertices;
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            var point = position + vertices[i]; 
+            Handles.Label(point, $"Vertex({i}): {point}");
+        }
+    }
+    
+    public static void DrawMeshUVInfo(Vector3 position, Mesh mesh)
+    {
+        var vertices = mesh.vertices;
+        var uvs = mesh.uv;
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            var point = position + vertices[i]; 
+            Handles.Label(point, $"UV({i}): {uvs[i]}");
+        }
+    }
 }
