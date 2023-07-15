@@ -10,4 +10,10 @@ public struct OrientedPoint
         this.position = position;
         this.rotation = rotation;
     }
+    
+    public OrientedPoint(Vector3 position, Vector3 forward)
+    {
+        this.position = position;
+        this.rotation = Quaternion.LookRotation(forward);
+    }
 }
