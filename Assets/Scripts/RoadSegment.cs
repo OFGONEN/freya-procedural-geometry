@@ -12,7 +12,7 @@ public class RoadSegment : MonoBehaviour
     
     Vector3 GetPosition(int index) => controlPoints[index].position;
     
-    Vector3 GetBezierPoint(float t)
+    OrientedPoint GetBezierPoint(float t)
     {
         var p0 = GetPosition(0);
         var p1 = GetPosition(1);
@@ -26,30 +26,10 @@ public class RoadSegment : MonoBehaviour
         var d = Vector3.Lerp(a, b, t);
         var e = Vector3.Lerp(b, c, t);
 
-        return Vector3.Lerp(d, e, t);
-    }
-    
-    Quaternion GetBezierRotation(float t)
-    {
-        var tangent = GetBezierTangent(t);
-        return Quaternion.LookRotation(tangent);
-    }
-    
-    Vector3 GetBezierTangent(float t)
-    {
-        var p0 = GetPosition(0);
-        var p1 = GetPosition(1);
-        var p2 = GetPosition(2);
-        var p3 = GetPosition(3);
+        var position = Vector3.Lerp(d, e, t);
+        var rotation = Quaternion.LookRotation((e - d).normalized);
 
-        var a = Vector3.Lerp(p0, p1, t);
-        var b = Vector3.Lerp(p1, p2, t);
-        var c = Vector3.Lerp(p2, p3, t);
-        
-        var d = Vector3.Lerp(a, b, t);
-        var e = Vector3.Lerp(b, c, t);
-
-        return (e - d).normalized;
+        return new OrientedPoint(position, rotation);
     }
     
     private void OnDrawGizmos()
@@ -71,10 +51,9 @@ public class RoadSegment : MonoBehaviour
 
         Gizmos.color = Color.red;
 
-        var testPoint = GetBezierPoint(tTest);
-        var testRotation = GetBezierRotation(tTest);
-        Gizmos.DrawSphere(testPoint, gizmoRadius / 2f);
-        Handles.PositionHandle(testPoint, testRotation);
+        var testOrientedPoint = GetBezierPoint(tTest);
+        Gizmos.DrawSphere(testOrientedPoint.position, gizmoRadius / 2f);
+        Handles.PositionHandle(testOrientedPoint.position, testOrientedPoint.rotation);
             
         Gizmos.color = Color.white;
     }
