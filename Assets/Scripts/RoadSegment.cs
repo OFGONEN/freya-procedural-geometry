@@ -52,7 +52,7 @@ public class RoadSegment : MonoBehaviour
         Gizmos.color = Color.red;
 
         var testOrientedPoint = GetBezierOrientedPoint(tTest);
-        Gizmos.DrawSphere(testOrientedPoint.position, gizmoRadius / 2f);
+        Gizmos.DrawSphere(testOrientedPoint.position, gizmoRadius / 4f);
         Handles.PositionHandle(testOrientedPoint.position, testOrientedPoint.rotation);
             
         Gizmos.color = Color.white;
