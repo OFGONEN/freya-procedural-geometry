@@ -6,8 +6,8 @@ public class Mesh2D : ScriptableObject
     [System.Serializable]
     public class Vertex
     {
-        public Vector2 points;
-        public Vector2 normals;
+        public Vector2 points; // this should've been named point
+        public Vector2 normals; // this should've been named normal
         public float u;       
     }
 
