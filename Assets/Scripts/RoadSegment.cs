@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RoadSegment : MonoBehaviour
 {
+    [SerializeField] private Mesh2D shape2d;
     [SerializeField] private Transform[] controlPoints = new Transform[4];
     [SerializeField] private float gizmoRadius;
     [SerializeField, Range(0,1)] private float tTest;
@@ -49,12 +50,18 @@ public class RoadSegment : MonoBehaviour
             1f
         );
 
-        Gizmos.color = Color.red;
+        var orientedPoint = GetBezierOrientedPoint(tTest);
+        Handles.PositionHandle(orientedPoint.position, orientedPoint.rotation);
 
-        var testOrientedPoint = GetBezierOrientedPoint(tTest);
-        Gizmos.DrawSphere(testOrientedPoint.position, gizmoRadius / 4f);
-        Handles.PositionHandle(testOrientedPoint.position, testOrientedPoint.rotation);
+        void DrawPoint(Vector2 localPosition) =>
+            Gizmos.DrawSphere(orientedPoint.LocalToWorld(localPosition), 0.15f);
+
+        for (int i = 0; i < shape2d.lineIndices.Length - 1; i += 2)
+        {
+            var worldPointOne = orientedPoint.LocalToWorld(shape2d.vertices[shape2d.lineIndices[i]].points);
+            var worldPointTwo = orientedPoint.LocalToWorld(shape2d.vertices[shape2d.lineIndices[i + 1]].points);
             
-        Gizmos.color = Color.white;
+            Gizmos.DrawLine(worldPointOne, worldPointTwo);
+        }
     }
 }
