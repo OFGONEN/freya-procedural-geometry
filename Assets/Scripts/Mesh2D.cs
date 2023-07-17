@@ -8,7 +8,7 @@ public class Mesh2D : ScriptableObject
     {
         public Vector2 points; // this should've been named point
         public Vector2 normals; // this should've been named normal
-        public float u;       
+        public float u; // x cordinate for the UV       
     }
 
     public Vertex[] vertices;
