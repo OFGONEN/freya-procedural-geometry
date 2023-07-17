@@ -16,6 +16,7 @@ public class RoadSegment : MonoBehaviour
 
     private Mesh mesh;
     private List<Vector3> mesh_vertices;
+    private List<Vector3> mesh_normals;
     private List<int> mesh_triangle_indices;
     
     Vector3 GetPosition(int index) => controlPoints[index].position;
@@ -26,6 +27,7 @@ public class RoadSegment : MonoBehaviour
         mesh.name = "road_segment";
         
         mesh_vertices = new List<Vector3>(shape2d.vertices.Length * edgeRingCount);
+        mesh_normals = new List<Vector3>(shape2d.vertices.Length * edgeRingCount);
         mesh_triangle_indices = new List<int>(shape2d.vertices.Length * edgeRingCount * 3); 
         
         GetComponent<MeshFilter>().sharedMesh = mesh;
@@ -38,6 +40,7 @@ public class RoadSegment : MonoBehaviour
         mesh.Clear();
         
         mesh_vertices.Clear();
+        mesh_normals.Clear();
         mesh_triangle_indices.Clear();
 
         for (int ring = 0; ring < edgeRingCount; ring++)
@@ -48,6 +51,7 @@ public class RoadSegment : MonoBehaviour
             for (int i = 0; i < shape2d.vertices.Length; i++)
             {
                 mesh_vertices.Add( orientedPoint.LocalToWorldPosition(shape2d.vertices[i].points));
+                mesh_normals.Add( orientedPoint.LocalToWorldVector(shape2d.vertices[i].normals));
             }
         }
 
@@ -77,6 +81,7 @@ public class RoadSegment : MonoBehaviour
         }
         
         mesh.SetVertices(mesh_vertices);
+        mesh.SetNormals(mesh_normals);
         mesh.SetTriangles(mesh_triangle_indices, 0);
     }
 
