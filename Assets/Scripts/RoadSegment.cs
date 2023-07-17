@@ -108,8 +108,11 @@ public class RoadSegment : MonoBehaviour
 
         var position = Vector3.Lerp(d, e, t);
         var tangent = (e - d).normalized;
+        var up = Vector3.Lerp(controlPoints[0].up, controlPoints[controlPoints.Length - 1].up, t).normalized;
+        
+        Quaternion rotation = Quaternion.LookRotation(tangent, up);
 
-        return new OrientedPoint(position, tangent);
+        return new OrientedPoint(position, rotation);
     }
 
     float GetApproxLength(int precision = 8)
