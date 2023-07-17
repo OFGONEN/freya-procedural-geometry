@@ -109,6 +109,22 @@ public class RoadSegment : MonoBehaviour
 
         return new OrientedPoint(position, tangent);
     }
+
+    float GetApproxLength(int precision = 8)
+    {
+        Vector3[] points = new Vector3[precision];
+        for (int i = 0; i < precision; i++)
+        {
+            float t = i / (precision - 1f);
+            points[i] = GetBezierOrientedPoint(t).position;
+        }
+
+        float totalDistance = 0;
+        for (int i = 0; i < precision-1; i++)
+            totalDistance += Vector3.Distance(points[i], points[i + 1]);
+
+        return totalDistance;
+    }
     
     private void OnDrawGizmos()
     {
