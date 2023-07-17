@@ -13,4 +13,18 @@ public class Mesh2D : ScriptableObject
 
     public Vertex[] vertices;
     public int[] lineIndices;
+
+    public float CalculateUSpan()
+    {
+        float totalDistance = 0;
+
+        for (int i = 0; i < lineIndices.Length; i += 2)
+        {
+            Vector2 a = vertices[lineIndices[i]].points;
+            Vector2 b = vertices[lineIndices[i + 1]].points;
+            totalDistance += Vector2.Distance(a, b);
+        }
+
+        return totalDistance;
+    }
 }

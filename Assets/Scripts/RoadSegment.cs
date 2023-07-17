@@ -46,6 +46,8 @@ public class RoadSegment : MonoBehaviour
         mesh_triangle_indices.Clear();
         mesh_uvs.Clear();
 
+        float uSpawn = shape2d.CalculateUSpan();
+
         for (int ring = 0; ring < edgeRingCount; ring++)
         {
             float t = ring / (edgeRingCount - 1f);
@@ -55,7 +57,7 @@ public class RoadSegment : MonoBehaviour
             {
                 mesh_vertices.Add( orientedPoint.LocalToWorldPosition(shape2d.vertices[i].points));
                 mesh_normals.Add( orientedPoint.LocalToWorldVector(shape2d.vertices[i].normals));
-                mesh_uvs.Add(new Vector2(shape2d.vertices[i].u, t));
+                mesh_uvs.Add(new Vector2(shape2d.vertices[i].u, t * GetApproxLength() / uSpawn));
             }
         }
 
